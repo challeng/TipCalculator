@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tipControl;
+@property (strong, nonatomic) IBOutlet UIView *tipView;
 
 @end
 
@@ -27,6 +28,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.totalLabel.alpha = 0.0;
+    self.tipLabel.alpha = 0.0;
     
     // Load default tip amount
     float defaultTipAmountIndex = [defaults integerForKey:@"defaulTipAmountIndex"];
@@ -46,6 +49,7 @@
     }
     
     [self updateValues];
+    [self animateCalculations];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -71,6 +75,7 @@
     [defaults setFloat:currentBillAmount forKey:@"currentBillAmount"];
     [defaults synchronize];
     
+    [self animateCalculations];
 }
 
 - (void)updateValues {
@@ -85,6 +90,25 @@
     // Update the ui
     self.tipLabel.text = [NSString stringWithFormat:@"%0.2f", tipAmount];
     self.totalLabel.text = [NSString stringWithFormat:@"%0.2f", totalAmount];
+}
+
+- (void)animateCalculations {
+    [self animateTipVisible];
+    [self animateTotalVisible];
+}
+
+- (void)animateTotalVisible {
+    self.totalLabel.alpha = 0.0;
+    [UIView animateWithDuration:1.0 animations:^{
+        self.totalLabel.alpha = 1.0;
+    }];
+}
+
+- (void)animateTipVisible {
+    self.tipLabel.alpha = 0.0;
+    [UIView animateWithDuration:1.0 animations:^{
+        self.tipLabel.alpha = 1.0;
+    }];
 }
 
 - (void) setMostRecentTimeUsed {

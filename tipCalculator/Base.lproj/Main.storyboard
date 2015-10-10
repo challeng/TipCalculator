@@ -101,6 +101,7 @@
                         <outlet property="TipControl" destination="qCY-bb-4Ei" id="EVV-tG-7ai"/>
                         <outlet property="TipLabel" destination="Ogv-Cz-P6E" id="wSf-Wf-Urf"/>
                         <outlet property="TotalLabel" destination="myp-Kp-JO4" id="KtR-pi-Ypg"/>
+                        <outlet property="tipView" destination="8bC-Xf-vdC" id="5Qy-kZ-ivv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
