@@ -33,7 +33,7 @@
     [self.billTextField becomeFirstResponder];
     
     // Load default tip amount
-    float defaultTipAmountIndex = [defaults integerForKey:@"defaulTipAmountIndex"];
+    NSInteger defaultTipAmountIndex = [defaults integerForKey:@"defaulTipAmountIndex"];
     self.tipControl.selectedSegmentIndex = defaultTipAmountIndex;
     
     // Check if <10min to keep bill amount
@@ -70,7 +70,7 @@
     [self updateValues];
 }
 
-- (IBAction)onTotalEntered {
+- (void)onTotalEntered {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     float currentBillAmount = [self.billTextField.text floatValue];
     [defaults setFloat:currentBillAmount forKey:@"currentBillAmount"];

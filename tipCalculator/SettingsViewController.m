@@ -17,13 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {
     // Load default tip amount
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    float defaultTipAmountIndex = [defaults integerForKey:@"defaulTipAmountIndex"];
+    NSInteger defaultTipAmountIndex = [defaults integerForKey:@"defaulTipAmountIndex"];
     self.defaultTipAmount.selectedSegmentIndex = defaultTipAmountIndex;
 }
 
