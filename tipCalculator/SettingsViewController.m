@@ -27,10 +27,6 @@
     self.defaultTipAmount.selectedSegmentIndex = defaultTipAmountIndex;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [self setMostRecentTimeUsed];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -41,13 +37,6 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:defaulTipAmountIndex forKey:@"defaulTipAmountIndex"];
-    [defaults synchronize];
-}
-
-- (void) setMostRecentTimeUsed {
-    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setDouble:now forKey:@"lastTimeUsed"];
     [defaults synchronize];
 }
 

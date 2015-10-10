@@ -30,6 +30,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.totalLabel.alpha = 0.0;
     self.tipLabel.alpha = 0.0;
+    [self.billTextField becomeFirstResponder];
     
     // Load default tip amount
     float defaultTipAmountIndex = [defaults integerForKey:@"defaulTipAmountIndex"];
@@ -61,7 +62,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)onTap:(UITapGestureRecognizer *)sender {
-    [self.view endEditing:YES];
+    [self onTotalEntered];
     [self updateValues];
 }
 
@@ -69,7 +70,7 @@
     [self updateValues];
 }
 
-- (IBAction)onEditingEnd:(UITextField *)sender {
+- (IBAction)onTotalEntered {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     float currentBillAmount = [self.billTextField.text floatValue];
     [defaults setFloat:currentBillAmount forKey:@"currentBillAmount"];
