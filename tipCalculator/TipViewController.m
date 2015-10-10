@@ -30,6 +30,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.totalLabel.alpha = 0.0;
     self.tipLabel.alpha = 0.0;
+    self.billTextField.keyboardType = UIKeyboardTypeDecimalPad;
     [self.billTextField becomeFirstResponder];
     
     // Load default tip amount
@@ -62,20 +63,19 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)onTap:(UITapGestureRecognizer *)sender {
-    [self onTotalEntered];
-    [self updateValues];
 }
 
 - (IBAction)onValueChange:(UISegmentedControl *)sender {
     [self updateValues];
+    [self animateCalculations];
 }
-
-- (void)onTotalEntered {
+- (IBAction)onBillAmountChanged:(UITextField *)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     float currentBillAmount = [self.billTextField.text floatValue];
     [defaults setFloat:currentBillAmount forKey:@"currentBillAmount"];
     [defaults synchronize];
     
+    [self updateValues];
     [self animateCalculations];
 }
 
@@ -88,9 +88,11 @@
     float tipAmount = [tipValues[self.tipControl.selectedSegmentIndex] floatValue] * billAmount;
     float totalAmount = billAmount + tipAmount;
     
+    NSString *currencySymbol = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
+    
     // Update the ui
-    self.tipLabel.text = [NSString stringWithFormat:@"%0.2f", tipAmount];
-    self.totalLabel.text = [NSString stringWithFormat:@"%0.2f", totalAmount];
+    self.tipLabel.text = [NSString localizedStringWithFormat:@"%@%0.2f", currencySymbol, tipAmount];
+    self.totalLabel.text = [NSString localizedStringWithFormat:@"%@%0.2f", currencySymbol, totalAmount];
 }
 
 - (void)animateCalculations {
